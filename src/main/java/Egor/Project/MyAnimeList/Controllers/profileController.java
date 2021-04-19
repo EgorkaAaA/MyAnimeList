@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class profileController {
     @GetMapping("/profile")
     public String profile(Model model) {
+        model.addAttribute("Title", "Профиль");
         return "profile";
     }
 }

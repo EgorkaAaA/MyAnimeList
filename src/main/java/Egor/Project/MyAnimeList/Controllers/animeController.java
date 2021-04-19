@@ -1,11 +1,9 @@
 package Egor.Project.MyAnimeList.Controllers;
 
-import Egor.Project.MyAnimeList.Entity.animeEntity;
-import Egor.Project.MyAnimeList.Entity.userEntity;
+import Egor.Project.MyAnimeList.Exception.animeAlreadyAdded;
 import Egor.Project.MyAnimeList.Services.animeListService;
 import Egor.Project.MyAnimeList.Services.animeService;
 import Egor.Project.MyAnimeList.Services.userService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,15 +24,20 @@ public class animeController {
         this.animeListService = animeListService;
     }
 
-    @PostMapping("/{id}")
-    public void animeAdd(@PathVariable long id) {
-        animeListService.addAnimeToList(1,id);
+    @PostMapping("{id}")
+    public String animeAdd(@PathVariable long id) {
+        try {
+            animeListService.addAnimeToList(1,id);
+        }
+        catch (Egor.Project.MyAnimeList.Exception.animeAlreadyAdded animeAlreadyAdded) {
+            animeAlreadyAdded.printStackTrace();
+        }
+        return "/home";
     }
 
     @GetMapping("/{id}")
     public String anime(Model model, @PathVariable long id) {
         userService.createUsers();
-        animeListService.addAnimeToList(1,id);
         model.addAttribute("anime",animeService.findAnimeById(id));
         return "anime";
     }
