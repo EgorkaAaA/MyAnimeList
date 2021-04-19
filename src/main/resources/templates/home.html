@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anime</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:insert="~{header::header}"></div>
+    <div class="wrapper">
+        <div class="someClass">
+            <th:block th:each="animes: ${anime}" th:class="someClass">
+                <a th:href="'/anime/' + ${animes.getId()}" th:text="${animes.getAnimeName()}"></a>
+                <p th:text="${animes.getAnimeRating()}"></p>
+                <p th:text="${animes.getAnimeViews()}"></p>
+            </th:block>
+        </div>
+    </div>
+</body>
+</html>

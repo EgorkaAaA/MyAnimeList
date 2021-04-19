@@ -1,0 +1,12 @@
+.wrapper {
+    height: 100%;
+    max-width: calc(1920px - 405px * 2);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.someClass {
+    background: green;
+    display: flex;
+    justify-content: space-between;
+}
