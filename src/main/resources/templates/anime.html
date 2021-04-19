@@ -9,7 +9,13 @@
 <body>
     <div th:insert="~{header::header}"></div>
     <div class="wrapper">
-        <p th:text="${anime.getAnimeName()}"></p>
+        <div class="animeView">
+            <p th:text="${anime.getAnimeName()}"></p>
+            <form th:action="@{'/anime/' + ${anime.getId()}}" method="post"></form>
+                <label for="btn">
+                    <button id="btn">Добавить</button>
+                </label>
+        </div>
     </div>
 </body>
 </html>

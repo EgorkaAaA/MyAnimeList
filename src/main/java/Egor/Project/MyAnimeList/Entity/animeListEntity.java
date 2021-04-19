@@ -11,6 +11,9 @@ public class animeListEntity {
     @ManyToOne
     private userEntity user;
 
+    @ManyToOne
+    private animeEntity anime;
+
     public Long getRow() {
         return row;
     }
@@ -37,7 +40,4 @@ public class animeListEntity {
 
     public animeListEntity() {
     }
-
-    @ManyToOne
-    private animeEntity anime;
 }
