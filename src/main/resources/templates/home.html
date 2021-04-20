@@ -10,12 +10,17 @@
     <div th:insert="~{header::header}"></div>
     <div class="wrapper">
         <div class="someClass">
-            <th:block th:each="animes: ${anime}" th:class="someClass">
+            <h4>Название</h4>
+            <h4>Рейтинг</h4>
+            <h4>Просмотры</h4>
+        </div>
+        <th:block th:each="animes: ${anime}" th:class="someClass">
+            <div class="someClass">
                 <a th:href="'/anime/' + ${animes.getId()}" th:text="${animes.getAnimeName()}"></a>
                 <p th:text="${animes.getAnimeRating()}"></p>
                 <p th:text="${animes.getAnimeViews()}"></p>
-            </th:block>
-        </div>
+            </div>
+        </th:block>
     </div>
 </body>
 </html>

@@ -1,7 +1,10 @@
 package Egor.Project.MyAnimeList.Entity;
 
 
+import javax.management.relation.Role;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class userEntity {
@@ -13,7 +16,10 @@ public class userEntity {
 
     private String password;
 
-    //ToDo: Добавить роли (подробно в этом разобраться)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_Role",joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<roleEntity> roles = new HashSet<>();
 
     public userEntity() {
     }
@@ -40,5 +46,9 @@ public class userEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRoles(Set<roleEntity> roles) {
+        this.roles = roles;
     }
 }
