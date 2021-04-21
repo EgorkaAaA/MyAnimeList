@@ -24,12 +24,11 @@ public class animeController {
         this.animeListService = animeListService;
     }
 
-    @PostMapping("{id}")
+    @PostMapping(path = "/{id}")
     public String animeAdd(@PathVariable long id) {
         try {
-            animeListService.addAnimeToList(1,id);
-        }
-        catch (Egor.Project.MyAnimeList.Exception.animeAlreadyAdded animeAlreadyAdded) {
+            animeListService.addAnimeToList(1, id);
+        } catch (Egor.Project.MyAnimeList.Exception.animeAlreadyAdded animeAlreadyAdded) {
             animeAlreadyAdded.printStackTrace();
         }
         return "/home";
