@@ -28,7 +28,7 @@ public class animeListService {
             animeListRepo.save(animeListEntity);
         }
         else {
-            throw new animeAlreadyAdded("Аниме уже добавленно!");
+            throw new animeAlreadyAdded("Аниме уже добавлено!");
         }
     }
 }

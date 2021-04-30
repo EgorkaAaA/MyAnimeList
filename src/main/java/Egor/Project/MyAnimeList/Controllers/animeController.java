@@ -28,7 +28,7 @@ public class animeController {
     public String animeAdd(@PathVariable long id) {
         try {
             animeListService.addAnimeToList(1, id);
-        } catch (Egor.Project.MyAnimeList.Exception.animeAlreadyAdded animeAlreadyAdded) {
+        } catch (animeAlreadyAdded animeAlreadyAdded) {
             animeAlreadyAdded.printStackTrace();
         }
         return "/home";
