@@ -21,6 +21,10 @@ public class userEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<roleEntity> roles = new HashSet<>();
 
+    public Set<roleEntity> getRoles() {
+        return roles;
+    }
+
     public userEntity() {
     }
 
