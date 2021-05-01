@@ -4,9 +4,6 @@ import Egor.Project.MyAnimeList.Entity.userEntity;
 import Egor.Project.MyAnimeList.Exception.notGoodUserName;
 import Egor.Project.MyAnimeList.Exception.userAlreadyExist;
 import Egor.Project.MyAnimeList.Repository.userRepo;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
@@ -21,16 +18,11 @@ public class userService {
         this.userRepo = userRepo;
     }
 
-    public Boolean aUser(userEntity user){
-        return userRepo.findByUserName(user.getUserName()) != null &&
-                userRepo.findByUserName(user.getUserName()).getPassword().equals(user.getPassword());
-    }
-
     public void createUsers() {
         if(userRepo.count() == 0) {
             for (int i = 0; i < 6; i++) {
                 userEntity user = new userEntity();
-                user.setUserName("user " + i);
+                user.setUsername("user " + i);
                 user.setPassword("123");
                 userRepo.save(user);
             }
@@ -38,7 +30,7 @@ public class userService {
     }
 
     public void createUser(userEntity user) throws userAlreadyExist, notGoodUserName {
-        if(userRepo.findByUserName(user.getUserName()) == null && goodUserName(user.getUserName())){
+        if(userRepo.findByUsername(user.getUsername()) == null && goodUserName(user.getUsername())){
             userRepo.save(user);
         }
         else throw new userAlreadyExist("Пользователь уже существует");

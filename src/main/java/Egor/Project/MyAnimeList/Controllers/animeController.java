@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/anime")
 public class animeController {
     private final userService userService;
@@ -33,7 +33,8 @@ public class animeController {
 
     @GetMapping("/{id}")
     public String anime(Model model, @PathVariable long id) {
-        userService.createUsers();
+//        userService.createUsers();
+        System.out.println("here");
         model.addAttribute("Title",animeService.findAnimeById(id).getAnimeName());
         model.addAttribute("anime",animeService.findAnimeById(id));
         return "anime";

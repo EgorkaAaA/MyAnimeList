@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface userRepo extends JpaRepository<userEntity,Long> {
     userEntity findById(long id);
 
-    userEntity findByUserName(String name);
+    userEntity findByUsername(String name);
 }

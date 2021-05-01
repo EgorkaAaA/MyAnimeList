@@ -1,13 +1,6 @@
 package Egor.Project.MyAnimeList.Entity;
 
-import org.springframework.security.core.GrantedAuthority;
-
-public enum Role implements GrantedAuthority {
+public enum Role{
     User,
     Admin;
-
-    @Override
-    public String getAuthority() {
-        return name();
-    }
 }
