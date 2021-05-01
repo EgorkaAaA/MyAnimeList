@@ -17,7 +17,7 @@ public class homeController {
     public String home(Model model){
         animeService.startValue();
         model.addAttribute("anime", animeService.findAllAnime());
-        model.addAttribute("Title", "Аниме");
+        model.addAttribute("Title", "Shikigory");
         return "home";
     }
 }

@@ -1,13 +1,15 @@
 package Egor.Project.MyAnimeList.Entity;
 
 
-import javax.management.relation.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
-public class userEntity {
+public class userEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,12 +18,12 @@ public class userEntity {
 
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_Role",joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<roleEntity> roles = new HashSet<>();
+    @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
+    @CollectionTable(name="user_role", joinColumns = @JoinColumn(name="user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
-    public Set<roleEntity> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
@@ -44,15 +46,45 @@ public class userEntity {
         this.userName = userName;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setRoles(Set<roleEntity> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

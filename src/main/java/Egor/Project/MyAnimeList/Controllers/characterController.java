@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/character")
 public class characterController {
-    @Autowired
-    private characterService characterService;
+    private final characterService characterService;
+
+    public characterController(characterService characterService) {
+        this.characterService = characterService;
+    }
 
     @GetMapping("/{id}")
     public String characterShow(@PathVariable long id, Model model) {
