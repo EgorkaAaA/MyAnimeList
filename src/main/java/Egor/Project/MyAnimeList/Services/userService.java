@@ -4,6 +4,8 @@ import Egor.Project.MyAnimeList.Entity.userEntity;
 import Egor.Project.MyAnimeList.Exception.notGoodUserName;
 import Egor.Project.MyAnimeList.Exception.userAlreadyExist;
 import Egor.Project.MyAnimeList.Repository.userRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
@@ -12,25 +14,23 @@ import java.util.regex.Pattern;
 @Service
 public class userService {
 
+    private final PasswordEncoder passwordEncoder;
+
     private final userRepo userRepo;
 
-    public userService(userRepo userRepo) {
+    public userService(userRepo userRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public void createUsers() {
-        if(userRepo.count() == 0) {
-            for (int i = 0; i < 6; i++) {
-                userEntity user = new userEntity();
-                user.setUsername("user " + i);
-                user.setPassword("123");
-                userRepo.save(user);
-            }
-        }
+    public userEntity findUserByName(String username) {
+        return userRepo.findByUsername(username);
     }
 
     public void createUser(userEntity user) throws userAlreadyExist, notGoodUserName {
         if(userRepo.findByUsername(user.getUsername()) == null && goodUserName(user.getUsername())){
+            String password = passwordEncoder.encode(user.getPassword());
+            user.setPassword(password);
             userRepo.save(user);
         }
         else throw new userAlreadyExist("Пользователь уже существует");

@@ -20,7 +20,7 @@ public class animeService {
                 animeEntity anime = new animeEntity();
                 anime.setAnimeName("NewAnime" + i);
                 anime.setAnimeRating((byte)i);
-                anime.setAnimeViews(100);
+                anime.setAnimeViews(0);
                 animeRepo.save(anime);
             }
         }

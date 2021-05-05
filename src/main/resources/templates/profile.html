@@ -2,12 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${Title}"></title>
-    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+<head th:insert="~{head::head}">
 </head>
 <body>
     <div th:insert="~{header::header}"></div>
+    <div class="wrapper">
+        <h1 th:text="${user.getUsername()}"></h1>
+    </div>
+    <div class="wrapper">
+        <th:block th:each="animes : ${anime}">
+            <p th:text="${animes.getAnime()}"></p>
+        </th:block>
+    </div>
 </body>
 </html>

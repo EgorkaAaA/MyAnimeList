@@ -2,7 +2,7 @@ package Egor.Project.MyAnimeList.Entity;
 
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Collection;
 
 @Entity
 public class userEntity{
@@ -13,10 +13,12 @@ public class userEntity{
     private String password;
     private boolean active;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
     public Long getId() {
         return id;
@@ -30,34 +32,9 @@ public class userEntity{
         return username;
     }
 
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return isActive();
-//    }
-
     public void setUsername(String username) {
         this.username = username;
     }
-
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return getRoles();
-//    }
 
     public String getPassword() {
         return password;
@@ -75,11 +52,11 @@ public class userEntity{
         this.active = active;
     }
 
-    public Set<Role> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
 }
